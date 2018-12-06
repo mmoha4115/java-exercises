@@ -1,5 +1,7 @@
 package exercise;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,10 +13,23 @@ public class CountingChars {
         String asciiLettersOnly = "abcdefghijklmnopqrstuvwxyz";
         asciiLettersOnly += asciiLettersOnly.toUpperCase();
         char[] alphabet = asciiLettersOnly.toCharArray();
-        System.out.println("Enter a paragrah to examine:  ");
-        Scanner scanner = new Scanner(System.in);
-        String paragraph = scanner.nextLine();
-        char[] arrayOfLetters = paragraph.toCharArray();
+        File file = new File("paragraph.txt");
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFound - Please check location of the file ie. pathname.....");
+        }
+        StringBuilder paragraph= new StringBuilder();
+        String sentence;
+        do {
+            sentence = scanner.nextLine();
+            if(!(sentence.equals(""))){
+            paragraph.append(sentence);
+        }
+        }while(scanner.hasNextLine());
+        System.out.println(paragraph);
+        char[] arrayOfLetters = paragraph.toString().toCharArray();
         for (char characterInArray : arrayOfLetters) {
             for (char letter : alphabet) {
                 if (characterInArray == letter) {
